@@ -14,9 +14,4 @@ fun main(args: Array<String>) {
 		setBannerMode(Banner.Mode.OFF)
 	}
 
-@RestController
-class MessageResource{
-	@GetMapping("/")
-	fun index() = "Hello!"
-}
 }
