@@ -1,10 +1,9 @@
 package com.example.InventoryServer.controllers
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class HelloWorld {
-    @GetMapping("/")
-    fun index() = "Hello!"
+    @RequestMapping("/api/greet")
+    fun index(@RequestParam name:String):String = "Hello, $name"
 }
