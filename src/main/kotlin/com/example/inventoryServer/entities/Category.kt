@@ -1,4 +1,4 @@
-package com.example.inventoryServer.entities
+package com.example.InventoryServer.entities
 
 import javax.persistence.*
 

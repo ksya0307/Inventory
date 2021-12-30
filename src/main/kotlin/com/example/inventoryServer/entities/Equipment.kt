@@ -1,5 +1,6 @@
 package com.example.inventoryServer.entities
 
+import com.example.InventoryServer.entities.Category
 import javax.persistence.*
 
 @Entity
