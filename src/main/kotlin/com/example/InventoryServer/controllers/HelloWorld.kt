@@ -4,6 +4,6 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 class HelloWorld {
-    @RequestMapping("/api/greet")
+    @RequestMapping("/")
     fun index(@RequestParam name:String):String = "Hello, $name and Welcome"
 }
