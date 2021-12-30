@@ -6,4 +6,7 @@ import org.springframework.web.bind.annotation.*
 class HelloWorld {
     @RequestMapping("/")
     fun index():String = "Hello and Welcome"
+
+    @RequestMapping("ksya")
+    fun ksya():String = "This is ksya"
 }
