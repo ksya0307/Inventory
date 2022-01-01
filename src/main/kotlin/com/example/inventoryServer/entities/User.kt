@@ -1,36 +1,28 @@
-package com.example.inventoryServer.entities
+package com.example.InventoryServer.entities
 
 import javax.persistence.*
 
 @Entity
 @Table(name = "users")
-open class User {
+class User (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    open var id: Int? = null
-
-    @Lob
+    var id: Int? = null,
     @Column(name = "lastname")
-    open var lastname: String? = null
-
-    @Lob
+    var lastname: String? = null,
     @Column(name = "firstname")
-    open var firstname: String? = null
-
-    @Lob
+    var firstname: String? = null,
     @Column(name = "secondname")
-    open var secondname: String? = null
-
-    @Lob
+    var secondname: String? = null,
     @Column(name = "login")
-    open var login: String? = null
-
-    @Lob
+    var login: String? = null,
     @Column(name = "password")
-    open var password: String? = null
-
-    @Lob
+    var password: String? = null,
     @Column(name = "usertype")
-    open var usertype: String? = null
-}
+    var usertype: String? = null,
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    var classrooms:List<Classroom>? = null,
+    @OneToMany(mappedBy = "responsiblePerson", orphanRemoval = true)
+    var responsiblePerson:List<Inventory>? = null,
+)

@@ -1,12 +1,18 @@
-package com.example.inventoryServer.entities
+package com.example.InventoryServer.entities
 
 import javax.persistence.*
 
 @Entity
 @Table(name = "equipmentbelonging")
-open class Equipmentbelonging {
+class Equipmentbelonging (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    open var id: Int? = null
-}
+    var id: Int? = null,
+    @Column(name = "name", nullable = false)
+    var name:String?=null,
+
+    @OneToMany(mappedBy = "equipmentBelonging", orphanRemoval = true)
+    var equipmentBelonging: List<Inventory>
+
+    )

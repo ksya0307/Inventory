@@ -1,21 +1,20 @@
-package com.example.inventoryServer.entities
+package com.example.InventoryServer.entities
 
 import com.example.InventoryServer.entities.Category
 import javax.persistence.*
 
 @Entity
 @Table(name = "equipment")
-open class Equipment {
+class Equipment (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    open var id: Int? = null
+    var id: Int? = null,
 
-    @Lob
     @Column(name = "about")
-    open var about: String? = null
+    var about: String? = null,
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = [CascadeType.ALL])
     @JoinColumn(name = "category")
-    open var category: Category? = null
-}
+    var category: Category? = null
+)
