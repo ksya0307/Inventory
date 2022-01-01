@@ -14,5 +14,4 @@ class Equipmentbelonging (
 
     @OneToMany(mappedBy = "equipmentBelonging", orphanRemoval = true)
     var equipmentBelonging: List<Inventory>
-
     )

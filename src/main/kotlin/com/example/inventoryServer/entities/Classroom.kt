@@ -1,5 +1,7 @@
 package com.example.InventoryServer.entities
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import javax.persistence.*
 
 @Entity
@@ -10,6 +12,8 @@ class Classroom (
     @Column(name = "classnumber", nullable = false)
     var classnumber: String? = null,
 
+    @JsonManagedReference
+    @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = [CascadeType.ALL])
     @JoinColumn(name = "user")
     var user: User?=null,
