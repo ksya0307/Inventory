@@ -1,9 +1,12 @@
 package com.example.InventoryServer.entities
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonManagedReference
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import javax.persistence.*
 
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "classnumber")
 @Entity
 @Table(name = "classrooms")
 class Classroom (
@@ -12,15 +15,15 @@ class Classroom (
     @Column(name = "classnumber", nullable = false)
     var classnumber: String? = null,
 
-    @JsonManagedReference
-    @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = [CascadeType.ALL])
+    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "user")
     var user: User?=null,
 
-    @OneToMany(mappedBy = "classroom", orphanRemoval = true)
+    @JsonIgnore
+    @OneToMany(mappedBy = "classroom", orphanRemoval = true, fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var classroom:List<Classroomequipment>? = null,
 
-    @OneToMany(mappedBy = "forClassroom", orphanRemoval = true)
+    @JsonIgnore
+    @OneToMany(mappedBy = "forClassroom", orphanRemoval = true, fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var forClassroom:List<Inventory>? = null
 )

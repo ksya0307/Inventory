@@ -1,7 +1,11 @@
 package com.example.InventoryServer.entities
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import javax.persistence.*
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
 @Entity
 @Table(name = "users")
 class User (
@@ -23,6 +27,12 @@ class User (
     var usertype: String? = null,
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     var classrooms:List<Classroom>? = null,
-    @OneToMany(mappedBy = "responsiblePerson", orphanRemoval = true)
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "responsiblePerson", orphanRemoval = true, fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var responsiblePerson:List<Inventory>? = null,
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    var user:List<Classroom>? = null,
 )

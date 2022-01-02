@@ -1,10 +1,11 @@
 package com.example.InventoryServer.entities
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonManagedReference
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import java.time.LocalDate
 import javax.persistence.*
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
 @Entity
 @Table(name = "inventory")
  class Inventory (
@@ -13,8 +14,6 @@ import javax.persistence.*
     @Column(name = "id", nullable = false)
     var id: Int? = null,
 
-    @JsonManagedReference
-    @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = [CascadeType.ALL])
     @JoinColumn(name = "inventorynumber", nullable = false)
     var inventoryNumber: Classroomequipment? = null,
@@ -22,8 +21,6 @@ import javax.persistence.*
     @Column(name = "getdate", nullable = false)
     var getDate:LocalDate? = null,
 
-    @JsonManagedReference
-    @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = [CascadeType.ALL])
     @JoinColumn(name = "equipmentbelonging")
     var equipmentBelonging:Equipmentbelonging? = null,
@@ -37,14 +34,10 @@ import javax.persistence.*
     @Column(name = "ifo", nullable = false)
     var ifo: String? = null,
 
-    @JsonManagedReference
-    @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = [CascadeType.ALL])
     @JoinColumn(name = "forclassroom")
     var forClassroom:Classroom? = null,
 
-    @JsonManagedReference
-    @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = [CascadeType.ALL])
     @JoinColumn(name = "responsibleperson")
     var responsiblePerson:User? = null,
