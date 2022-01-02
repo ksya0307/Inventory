@@ -1,12 +1,20 @@
-package com.example.inventoryServer.entities
+package com.example.InventoryServer.entities
+
 
 import javax.persistence.*
 
 @Entity
 @Table(name = "category")
-open class Category {
+class Category (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    open var id: Int? = null
-}
+    var id: Int? = null,
+
+    @Column(name = "name", nullable = false)
+    var name:String?=null,
+
+    @OneToMany(orphanRemoval = true, mappedBy = "category")
+    var equipment:List<Equipment>? = null
+
+)
