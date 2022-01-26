@@ -21,7 +21,7 @@ class Classroom (
 
     @JsonIgnore
     @OneToMany(mappedBy = "classroom", orphanRemoval = true, fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    var classroom:List<Classroomequipment>? = null,
+    var classroom:List<ClassroomEquipment>? = null,
 
     @JsonIgnore
     @OneToMany(mappedBy = "forClassroom", orphanRemoval = true, fetch = FetchType.LAZY, cascade = [CascadeType.ALL])

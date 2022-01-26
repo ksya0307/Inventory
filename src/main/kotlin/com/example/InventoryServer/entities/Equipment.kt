@@ -23,5 +23,5 @@ class Equipment (
 
     @JsonIgnore
     @OneToMany(orphanRemoval = true, mappedBy = "equipment", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    var equipment:List<Classroomequipment>? = null
+    var equipment:List<ClassroomEquipment>? = null
 )

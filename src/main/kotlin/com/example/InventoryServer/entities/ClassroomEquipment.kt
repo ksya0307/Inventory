@@ -6,9 +6,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import javax.persistence.*
 
 @Entity
-@Table(name = "classroomequipment")
+@Table(name = "classrooms_equipment")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "inventorynumber")
-class Classroomequipment(
+class ClassroomEquipment(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "inventorynumber", nullable = false)

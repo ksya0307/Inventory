@@ -1,20 +1,33 @@
 package com.example.InventoryServer.controllers
-
 import com.example.InventoryServer.entities.User
 import com.example.InventoryServer.services.UserService
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.ResponseBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.web.bind.annotation.*
+
 
 @RestController
+@RequestMapping("/api/v1/auth")
 class UserController(val userService: UserService) {
 
-    @RequestMapping(value = ["/users"], method = [RequestMethod.GET],
-        headers = ["Accept=application/json;charset=UTF-8"],
-        produces = ["application/json"])
+    @GetMapping("users")
+    @PreAuthorize("hasAuthority('USERS:READ')")
     @ResponseBody
-    fun inventory():List<User>{
+    fun getUsers():List<User>{
         return userService.all()
     }
+
+    @GetMapping("users/{userId}")
+    fun getUser(@PathVariable("userId") userId: Int): User? {
+        return userService.getUser(userId)
+    }
+
+    @GetMapping("test")
+    fun test(): String = "Hewwo"
+
+    /*@PostMapping("/register")
+    fun register(@RequestBody body: RegisterDTO): ResponseEntity<User> {
+        val user = User()
+        return ResponseEntity.ok(this.userService.register(user))
+    }*/
 }
+

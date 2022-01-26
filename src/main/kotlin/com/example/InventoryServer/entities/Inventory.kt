@@ -1,6 +1,7 @@
 package com.example.InventoryServer.entities
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import java.time.LocalDate
 import javax.persistence.*
@@ -16,11 +17,12 @@ import javax.persistence.*
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = [CascadeType.ALL])
     @JoinColumn(name = "inventorynumber", nullable = false)
-    var inventoryNumber: Classroomequipment? = null,
+    var inventoryNumber: ClassroomEquipment? = null,
 
     @Column(name = "getdate", nullable = false)
     var getDate:LocalDate? = null,
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = [CascadeType.ALL])
     @JoinColumn(name = "equipmentbelonging")
     var equipmentBelonging:Equipmentbelonging? = null,
