@@ -1,5 +1,8 @@
 package com.example.InventoryServer.config
 
+import com.example.InventoryServer.jwt.JwtAuthFilter
+import com.example.InventoryServer.jwt.JwtConfig
+import com.example.InventoryServer.jwt.JwtValidator
 import com.example.InventoryServer.services.CustomUserDetailsService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
@@ -10,23 +13,26 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
-import java.util.concurrent.TimeUnit
+import javax.crypto.SecretKey
 
 @EnableWebSecurity
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-class WebSecurityConfig: WebSecurityConfigurerAdapter() {
-
-    @Autowired
-    lateinit var userDetailsService: UserDetailsService
+class WebSecurityConfig @Autowired constructor(var userDetailsService: UserDetailsService, var secretKey: SecretKey, var jwtConfig: JwtConfig): WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity?) {
         http
             ?.csrf()
             ?.disable()
+            ?.sessionManagement()
+            ?.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            ?.and()
+            ?.addFilter(JwtAuthFilter(authenticationManager(), jwtConfig, secretKey))
+            ?.addFilterAfter(JwtValidator(secretKey, jwtConfig), JwtAuthFilter::class.java)
             ?.authorizeRequests()
             ?.antMatchers("/", "index", "/css/*", "/js/*")
             ?.permitAll()
@@ -34,21 +40,6 @@ class WebSecurityConfig: WebSecurityConfigurerAdapter() {
             ?.hasAuthority("READER")
             ?.anyRequest()
             ?.authenticated()
-            ?.and()
-            ?.formLogin()
-            ?.permitAll()
-            ?.and()
-            ?.rememberMe()
-            ?.tokenValiditySeconds(TimeUnit.DAYS.toSeconds(31).toInt())
-            ?.key("lisasecurekey")
-            ?.userDetailsService(userDetailsService)
-            ?.and()
-            ?.logout()
-            ?.logoutUrl("/logout")
-            ?.clearAuthentication(true)
-            ?.invalidateHttpSession(true)
-            ?.deleteCookies("JSESSIONID","remember-me")
-            ?.logoutSuccessUrl("/login")
     }
 
     override fun configure(auth: AuthenticationManagerBuilder) {
