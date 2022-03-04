@@ -1,7 +1,7 @@
-package com.example.InventoryServer.repositories;
+package com.example.inventoryServer.repositories
 
-import com.example.InventoryServer.entities.User
+import com.example.inventoryServer.entities.Users
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface UserRepository : JpaRepository<User, Int> {
+interface UserRepository : JpaRepository<Users, Int> {
 }

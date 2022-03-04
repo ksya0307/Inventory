@@ -1,10 +1,11 @@
-package com.example.InventoryServer.services
+package com.example.inventoryServer.services
 
-import com.example.InventoryServer.entities.User
-import com.example.InventoryServer.repositories.UserRepository
+import com.example.inventoryServer.entities.Users
+import com.example.inventoryServer.repositories.UserRepository
 import org.springframework.stereotype.Service
 
 @Service
 class UserService(val userRepository: UserRepository) {
-    fun all():List<User> = userRepository.findAll()
+    fun all():List<Users> = userRepository.findAll()
+    fun getById(id:Long):Users = userRepository.getById(id.toInt())
 }

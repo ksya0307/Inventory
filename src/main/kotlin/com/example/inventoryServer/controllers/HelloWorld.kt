@@ -1,4 +1,4 @@
-package com.example.InventoryServer.controllers
+package com.example.inventoryServer.controllers
 
 import org.springframework.web.bind.annotation.*
 
